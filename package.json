@@ -10,7 +10,12 @@
   "dependencies": {
     "express": "*",
     "mongoose": "*",
-    "body-parser": "*"
+    "body-parser": "*",
+    "cors": "*",
+    "bcryptjs": "*",
+    "jsonwebtoken": "*",
+    "passport": "*",
+    "passport-jwt": "*"
   },
   "repository": {
     "type": "git",
@@ -18,5 +23,8 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/vHubShopper/vhub-api#readme"
+  "homepage": "https://bitbucket.org/vHubShopper/vhub-api#readme",
+  "devDependencies": {
+    "@angular/cli": "^1.5.5"
+  }
 }
