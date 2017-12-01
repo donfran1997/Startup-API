@@ -7,30 +7,43 @@ const databaseConfig = require('../config/database');
 
 router.post('/register', (req, res, next) => {
   // Check username isn't already taken
-  User.getUserByUserName(req.body.username, (err, user) => {
-    if (err) throw err;
-    if (user) {
-      return res.json({ success: false, msg: 'Username already exists' });
-    }
-  });
 
-  // TODO: Check email isn't already in use
-
-  // Create a new user object
-  let newUser = new User({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-  });
-
-  // Add the user to the database
-  User.addUser(newUser, (err) => {
+  User.getUserByUsername(req.body.username, (err, user) => {
     if (err) {
-      return res.json({ success: false, msg: 'Failed to Register' });
+      return res.json({ success: false, msg: 'Error' });
+    }
+
+    if (user) {
+      return res.json({ success: false, msg: 'Username already in use' });
     } else {
-      return res.json({ success: true, msg: 'User Registered' });
+      // Check email isn't already in use
+      User.getUserByEmail(req.body.email, (err, user) => {
+        if (err) {
+          return res.json({ success: false, msg: 'Error' });
+        }
+
+        if (user) {
+          return res.json({ success: false, msg: 'Email already in use' });
+        } else {
+          // Create a new user object
+          let newUser = new User({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+          });
+
+          // Add the user to the database
+          User.addUser(newUser, (err) => {
+            if (err) {
+              return res.json({ success: false, msg: 'Failed to Register' });
+            } else {
+              return res.json({ success: true, msg: 'User Registered' });
+            }
+          });
+        }
+      });
     }
   });
 });

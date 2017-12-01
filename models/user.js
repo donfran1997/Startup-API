@@ -32,6 +32,11 @@ module.exports.getUserByUsername = function (username, callback) {
   User.findOne(query, callback);
 };
 
+module.exports.getUserByEmail = function (email, callback) {
+  const query = { email: email };
+  User.findOne(query, callback);
+};
+
 module.exports.addUser = function (newUser, callback) {
   newUser.save(callback);
 };
