@@ -75,8 +75,9 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/logout', (req, res, next) => {
-  console.log(req.body);
-  res.send('LOGOUT REQUEST');
+  User.getAllUsers((err, users) => {
+    return res.json({ success: true, msg: users });
+  });
 });
 
 router.get('/profile/:id', (req, res, next) => {

@@ -38,10 +38,6 @@ module.exports.getUserByEmail = function (email, callback) {
 };
 
 module.exports.addUser = function (newUser, callback) {
-  newUser.save(callback);
-};
-
-/*
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       if (err) throw err;
@@ -49,18 +45,15 @@ module.exports.addUser = function (newUser, callback) {
       newUser.save(callback);
     });
   });
-*/
+};
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
-  if (candidatePassword === hash) {
-    callback(null, true);
-  } else {
-    callback(null, false);
-  }
-  /*
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
     if (err) throw err;
     callback(null, isMatch);
   });
-  */
+};
+
+module.exports.getAllUsers = function (callback) {
+  User.find('', callback);
 };

@@ -13,15 +13,12 @@ const userRoutes = require('./routes/userRoutes');
 mongoose.connect('mongodb://localhost/vhub', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
-/*
-mongoose.connect(databaseConfig.database, { useMongoClient: true });
 mongoose.connection.on('connected', () => {
   console.log('Connected to database ' + databaseConfig.database);
 });
 mongoose.connection.on('error', (err) => {
   console.log('Database error ' + err);
 });
-*/
 
 // Port Number
 const port = 3000;
