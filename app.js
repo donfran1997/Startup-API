@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 
 const databaseConfig = require('./config/database');
 
+const elastic = require('./elasticsearch');
+
+const itemRoutes = require('./routes/itemRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 // Connect the database
@@ -43,6 +46,11 @@ require('./config/passport')(passport);
 
 // Routing
 app.use('/user', userRoutes);
+app.use('/item', itemRoutes);
+
+app.post('/search', (req, res) => {
+  elastic.search('name').then(function (result) { res.json(result) });
+});
 
 // Catch invalid endpoints
 app.use('/', (req, res) => {
